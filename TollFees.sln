@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TollFeeCalculator", "src\TollFeeCalculator\TollFeeCalculator.csproj", "{FCEE1208-FB3F-41AE-974F-BD88216CFCE3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{576BCAA4-7314-4BDE-B151-EA81CC33CC8D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{DCD2DB0E-A6F1-4CAA-B126-556DE53B90E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TollFeeCalculator.UnitTests", "tests\TollFeeCalculator.UnitTests\TollFeeCalculator.UnitTests.csproj", "{067F891D-8FF1-435F-BDD3-B04957516DDF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FCEE1208-FB3F-41AE-974F-BD88216CFCE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCEE1208-FB3F-41AE-974F-BD88216CFCE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCEE1208-FB3F-41AE-974F-BD88216CFCE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCEE1208-FB3F-41AE-974F-BD88216CFCE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{067F891D-8FF1-435F-BDD3-B04957516DDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{067F891D-8FF1-435F-BDD3-B04957516DDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{067F891D-8FF1-435F-BDD3-B04957516DDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{067F891D-8FF1-435F-BDD3-B04957516DDF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FCEE1208-FB3F-41AE-974F-BD88216CFCE3} = {576BCAA4-7314-4BDE-B151-EA81CC33CC8D}
+		{067F891D-8FF1-435F-BDD3-B04957516DDF} = {DCD2DB0E-A6F1-4CAA-B126-556DE53B90E0}
+	EndGlobalSection
+EndGlobal

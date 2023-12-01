@@ -1,6 +1,7 @@
-﻿using System;
-using System.Globalization;
-using TollFeeCalculator;
+﻿using TollFeeCalculator.Common.Enums;
+using TollFeeCalculator.Models.Vehicles;
+
+namespace TollFeeCalculator;
 
 public class TollCalculator
 {
@@ -44,12 +45,12 @@ public class TollCalculator
     {
         if (vehicle == null) return false;
         String vehicleType = vehicle.GetVehicleType();
-        return vehicleType.Equals(TollFreeVehicles.Motorbike.ToString()) ||
-               vehicleType.Equals(TollFreeVehicles.Tractor.ToString()) ||
-               vehicleType.Equals(TollFreeVehicles.Emergency.ToString()) ||
-               vehicleType.Equals(TollFreeVehicles.Diplomat.ToString()) ||
-               vehicleType.Equals(TollFreeVehicles.Foreign.ToString()) ||
-               vehicleType.Equals(TollFreeVehicles.Military.ToString());
+        return vehicleType.Equals(TollFreeVehicle.Motorbike.ToString()) ||
+               vehicleType.Equals(TollFreeVehicle.Tractor.ToString()) ||
+               vehicleType.Equals(TollFreeVehicle.Emergency.ToString()) ||
+               vehicleType.Equals(TollFreeVehicle.Diplomat.ToString()) ||
+               vehicleType.Equals(TollFreeVehicle.Foreign.ToString()) ||
+               vehicleType.Equals(TollFreeVehicle.Military.ToString());
     }
 
     public int GetTollFee(DateTime date, Vehicle vehicle)
@@ -94,15 +95,5 @@ public class TollCalculator
             }
         }
         return false;
-    }
-
-    private enum TollFreeVehicles
-    {
-        Motorbike = 0,
-        Tractor = 1,
-        Emergency = 2,
-        Diplomat = 3,
-        Foreign = 4,
-        Military = 5
     }
 }
