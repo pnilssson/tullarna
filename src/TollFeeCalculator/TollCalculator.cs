@@ -5,7 +5,6 @@ namespace TollFeeCalculator;
 
 public class TollCalculator
 {
-
     /**
      * Calculate the total toll fee for one day
      *
@@ -13,9 +12,11 @@ public class TollCalculator
      * @param dates   - date and time of all passes on one day
      * @return - the total toll fee for that day
      */
-
     public int GetTollFee(Vehicle vehicle, DateTime[] dates)
     {
+        if (IsTollFreeVehicle(vehicle))
+            return 0;
+        
         DateTime intervalStart = dates[0];
         int totalFee = 0;
         foreach (DateTime date in dates)
@@ -53,9 +54,9 @@ public class TollCalculator
                vehicleType.Equals(TollFreeVehicle.Military.ToString());
     }
 
-    public int GetTollFee(DateTime date, Vehicle vehicle)
+    private int GetTollFee(DateTime date, Vehicle vehicle)
     {
-        if (IsTollFreeDate(date) || IsTollFreeVehicle(vehicle)) return 0;
+        if (IsTollFreeDate(date)) return 0;
 
         int hour = date.Hour;
         int minute = date.Minute;
