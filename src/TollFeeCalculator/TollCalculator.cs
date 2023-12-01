@@ -14,7 +14,7 @@ public static class TollCalculator
      */
     public static int GetTollFee(Vehicle vehicle, DateTime[] dates)
     {
-        if (IsTollFreeVehicle(vehicle))
+        if (vehicle.IsTollFreeVehicle())
             return 0;
         
         DateTime intervalStart = dates[0];
@@ -40,17 +40,6 @@ public static class TollCalculator
         }
         if (totalFee > 60) totalFee = 60;
         return totalFee;
-    }
-
-    private static bool IsTollFreeVehicle(Vehicle vehicle)
-    {
-        string vehicleType = vehicle.GetVehicleType();
-        return vehicleType.Equals(TollFreeVehicle.Motorbike.ToString()) ||
-               vehicleType.Equals(TollFreeVehicle.Tractor.ToString()) ||
-               vehicleType.Equals(TollFreeVehicle.Emergency.ToString()) ||
-               vehicleType.Equals(TollFreeVehicle.Diplomat.ToString()) ||
-               vehicleType.Equals(TollFreeVehicle.Foreign.ToString()) ||
-               vehicleType.Equals(TollFreeVehicle.Military.ToString());
     }
 
     private static int GetTollFee(DateTime date)

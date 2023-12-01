@@ -1,6 +1,10 @@
-﻿namespace TollFeeCalculator.Models.Vehicles;
+﻿using TollFeeCalculator.Common.Enums;
+
+namespace TollFeeCalculator.Models.Vehicles;
 
 public abstract class Vehicle
 {
-    public abstract string GetVehicleType();
+    protected TollFreeVehicle? TollFreeVehicleType = null;
+
+    public bool IsTollFreeVehicle() => TollFreeVehicleType is not null;
 }

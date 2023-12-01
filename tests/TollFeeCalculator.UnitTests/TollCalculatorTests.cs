@@ -1,4 +1,5 @@
 using FluentAssertions;
+using TollFeeCalculator.Common.Enums;
 using TollFeeCalculator.Models.Vehicles;
 
 namespace TollFeeCalculator.UnitTests;
@@ -39,7 +40,7 @@ public class TollCalculatorTests
     public void GetTollFee_OnTollFreeCar_ShouldNotPayTollFee()
     {
         // Arrange
-        var car = new Car();
+        var car = new Car(TollFreeVehicle.Military);
         var dates = new[]
             { DateUtils.GetNonTollFreeDateAndTime() };
 
