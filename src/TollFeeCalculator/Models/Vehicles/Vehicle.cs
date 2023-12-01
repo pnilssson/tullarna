@@ -2,5 +2,5 @@
 
 public abstract class Vehicle
 {
-    public abstract String GetVehicleType();
+    public abstract string GetVehicleType();
 }

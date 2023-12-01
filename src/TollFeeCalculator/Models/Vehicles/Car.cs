@@ -2,7 +2,7 @@
 
 public class Car : Vehicle
 {
-    public override String GetVehicleType()
+    public override string GetVehicleType()
     {
         return "Car";
     }

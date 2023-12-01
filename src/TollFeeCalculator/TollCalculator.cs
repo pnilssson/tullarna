@@ -3,7 +3,7 @@ using TollFeeCalculator.Models.Vehicles;
 
 namespace TollFeeCalculator;
 
-public class TollCalculator
+public static class TollCalculator
 {
     /**
      * Calculate the total toll fee for one day
@@ -12,7 +12,7 @@ public class TollCalculator
      * @param dates   - date and time of all passes on one day
      * @return - the total toll fee for that day
      */
-    public int GetTollFee(Vehicle vehicle, DateTime[] dates)
+    public static int GetTollFee(Vehicle vehicle, DateTime[] dates)
     {
         if (IsTollFreeVehicle(vehicle))
             return 0;
@@ -24,8 +24,8 @@ public class TollCalculator
             int nextFee = GetTollFee(date);
             int tempFee = GetTollFee(intervalStart);
 
-            long diffInMillies = date.Millisecond - intervalStart.Millisecond;
-            long minutes = diffInMillies/1000/60;
+            long diffInMilliseconds = date.Millisecond - intervalStart.Millisecond;
+            long minutes = diffInMilliseconds/1000/60;
 
             if (minutes <= 60)
             {
@@ -42,10 +42,9 @@ public class TollCalculator
         return totalFee;
     }
 
-    private bool IsTollFreeVehicle(Vehicle vehicle)
+    private static bool IsTollFreeVehicle(Vehicle vehicle)
     {
-        if (vehicle == null) return false;
-        String vehicleType = vehicle.GetVehicleType();
+        string vehicleType = vehicle.GetVehicleType();
         return vehicleType.Equals(TollFreeVehicle.Motorbike.ToString()) ||
                vehicleType.Equals(TollFreeVehicle.Tractor.ToString()) ||
                vehicleType.Equals(TollFreeVehicle.Emergency.ToString()) ||
@@ -54,7 +53,7 @@ public class TollCalculator
                vehicleType.Equals(TollFreeVehicle.Military.ToString());
     }
 
-    private int GetTollFee(DateTime date)
+    private static int GetTollFee(DateTime date)
     {
         if (IsTollFreeDate(date)) return 0;
 
@@ -73,7 +72,7 @@ public class TollCalculator
         else return 0;
     }
 
-    private Boolean IsTollFreeDate(DateTime date)
+    private static bool IsTollFreeDate(DateTime date)
     {
         int year = date.Year;
         int month = date.Month;
