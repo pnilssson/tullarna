@@ -1,4 +1,4 @@
-﻿using TollFeeCalculator.Common.Enums;
+﻿using TollFeeCalculator.Common.Interfaces;
 using TollFeeCalculator.Models.Vehicles;
 
 namespace TollFeeCalculator;
@@ -14,7 +14,7 @@ public static class TollCalculator
      */
     public static int GetTollFee(Vehicle vehicle, DateTime[] dates)
     {
-        if (vehicle.IsTollFreeVehicle())
+        if (vehicle.IsTollFree())
             return 0;
         
         DateTime intervalStart = dates[0];

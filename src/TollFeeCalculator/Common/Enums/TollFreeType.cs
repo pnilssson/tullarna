@@ -1,9 +1,7 @@
 namespace TollFeeCalculator.Common.Enums;
 
-public enum TollFreeVehicle
+public enum TollFreeType
 {
-    Motorbike = 0,
-    Tractor = 1,
     Emergency = 2,
     Diplomat = 3,
     Foreign = 4,

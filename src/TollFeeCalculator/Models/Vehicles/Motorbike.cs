@@ -1,11 +1,6 @@
-﻿using TollFeeCalculator.Common.Enums;
-
-namespace TollFeeCalculator.Models.Vehicles;
+﻿namespace TollFeeCalculator.Models.Vehicles;
 
 public class Motorbike : Vehicle
 {
-    public Motorbike()
-    {
-        TollFreeVehicleType = TollFreeVehicle.Motorbike;
-    }
+    public override bool IsTollFree() => true;
 }
