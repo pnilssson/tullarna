@@ -35,4 +35,34 @@ public class CarTests
         // Assert
         tollFree.Should().BeTrue();
     }
+    
+    [Fact]
+    public void TollFreeType_WhenInstantiatedWith_DefaultConstructor_Should_BeNull()
+    {
+        // Arrange
+        var car = new Car();
+
+        // Act
+        var tollFreeType = car.TollFreeType;
+
+        // Assert
+        tollFreeType.Should().Be(null);
+    }
+    
+    [Theory]
+    [InlineData(TollFreeType.Military)]
+    [InlineData(TollFreeType.Emergency)]
+    [InlineData(TollFreeType.Diplomat)]
+    [InlineData(TollFreeType.Foreign)]
+    public void TollFreeType_WhenInstantiatedWith_ParameterizedConstructor_Should_ReturnTollFreeType(TollFreeType tollFreeTypeInput)
+    {
+        // Arrange
+        var car = new Car(tollFreeTypeInput);
+
+        // Act
+        var tollFreeType = car.TollFreeType;
+
+        // Assert
+        tollFreeType.Should().Be(tollFreeTypeInput);
+    }
 }

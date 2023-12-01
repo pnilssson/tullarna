@@ -4,16 +4,14 @@ namespace TollFeeCalculator.Models.Vehicles;
 
 public class Car : Vehicle
 {
-    private readonly TollFreeType? _tollFreeType;
-    
-    public Car(TollFreeType tollFreeVehicleType)
+    public Car(TollFreeType tollFreeType)
     {
-        _tollFreeType = tollFreeVehicleType;
+        TollFreeType = tollFreeType;
     }
 
     public Car()
     {
     }
 
-    public override bool IsTollFree() => _tollFreeType is not null;
+    public override bool IsTollFree() => TollFreeType is not null;
 }

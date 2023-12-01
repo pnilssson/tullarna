@@ -1,5 +1,4 @@
-﻿using TollFeeCalculator.Common.Interfaces;
-using TollFeeCalculator.Models.Vehicles;
+﻿using TollFeeCalculator.Models.Vehicles;
 
 namespace TollFeeCalculator;
 
