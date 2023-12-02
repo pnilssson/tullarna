@@ -57,8 +57,12 @@ public class TollCalculatorTests
     
     [Theory]
     [InlineData(6, 0)]
+    [InlineData(6, 29)]
     [InlineData(8, 30)]
+    [InlineData(11, 15)]
+    [InlineData(14, 59)]
     [InlineData(18, 0)]
+    [InlineData(18, 29)]
     public void GetTollFee_OnLowTollFeeTimes_Should_ReturnCorrectTollFee(int hour, int minute)
     {
         // Arrange
@@ -76,9 +80,13 @@ public class TollCalculatorTests
     
     [Theory]
     [InlineData(6, 30)]
+    [InlineData(6, 59)]
     [InlineData(8, 0)]
+    [InlineData(8, 29)]
     [InlineData(15, 0)]
+    [InlineData(15, 29)]
     [InlineData(17, 0)]
+    [InlineData(17, 59)]
     public void GetTollFee_OnMediumTollFeeTimes_Should_ReturnCorrectTollFee(int hour, int minute)
     {
         // Arrange
@@ -96,7 +104,10 @@ public class TollCalculatorTests
     
     [Theory]
     [InlineData(7, 0)]
+    [InlineData(7, 59)]
     [InlineData(15, 30)]
+    [InlineData(16, 15)]
+    [InlineData(16, 59)]
     public void GetTollFee_OnTollFeeTimes_Should_ReturnCorrectTollFee(int hour, int minute)
     {
         // Arrange
