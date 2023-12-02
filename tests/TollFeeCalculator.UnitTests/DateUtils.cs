@@ -8,7 +8,7 @@ public static class DateUtils
         return date.AddHours(6);
     }
         
-    private static DateTime GetNonTollFreeDate()
+    public static DateTime GetNonTollFreeDate()
     {
         return new DateTime(2013, 01, 02);
     }
