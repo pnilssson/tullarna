@@ -56,7 +56,7 @@ public static class TollCalculator
     /// <exception cref="ArgumentException">Throws if dates contains dates of different days.</exception>
     private static void ValidateDatesIsFromSameDay(IEnumerable<DateTime> dates)
     {
-        if (dates.GroupBy(date => date.Day).Count() > 1)
+        if (dates.GroupBy(date => date.Date).Count() > 1)
             throw new ArgumentException("Dates must be from the same day.");
     }
 }
