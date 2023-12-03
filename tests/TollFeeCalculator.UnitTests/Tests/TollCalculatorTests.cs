@@ -71,7 +71,7 @@ public class TollCalculatorTests
     }
     
     [Fact]
-    public void GetTollFee_WithTwoDateTimesWithinOneHour_Should_ReturnHighestFee()
+    public void GetTollFee_WithDateTimes_WithinOneHour_Should_ReturnHighestFee()
     {
         // Arrange
         var car = new Car();
@@ -82,6 +82,19 @@ public class TollCalculatorTests
 
         // Assert
         tollFee.Should().Be(highestFee);
+    }
+
+    [Fact] public void GetTollFee_WithDateTimes_WithinDifferentOneHourTimeSlots_Should_ReturnSumOfHighestFees()
+    {
+        // Arrange
+        var car = new Car();
+        var (dates, sum) = DateUtils.GetDateTimesWithinDifferentOneHourTimeSlotsAndFeeSum();
+
+        // Act
+        var tollFee = TollCalculator.GetTollFee(car, dates);
+
+        // Assert
+        tollFee.Should().Be(sum);
     }
     
     [Fact]

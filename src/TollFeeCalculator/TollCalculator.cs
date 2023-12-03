@@ -22,17 +22,16 @@ public static class TollCalculator
             return 0;
         
         // Sortera datum på tid
+        dates = dates.OrderBy(date => date.TimeOfDay).ToArray();
         DateTime intervalStart = dates[0];
         int totalFee = 0;
         foreach (DateTime date in dates)
         {
             int nextFee = TollFeeTimeUtil.GetTollFee(date);
             int tempFee = TollFeeTimeUtil.GetTollFee(intervalStart);
-
-            long diffInMilliseconds = date.Millisecond - intervalStart.Millisecond;
-            long minutes = diffInMilliseconds/1000/60;
-
-            if (minutes <= 60)
+            
+            var diffInMinutes = (date - intervalStart).TotalMinutes;
+            if (diffInMinutes <= 60)
             {
                 if (totalFee > 0) totalFee -= tempFee;
                 if (nextFee >= tempFee) tempFee = nextFee;
@@ -40,6 +39,8 @@ public static class TollCalculator
             }
             else
             {
+                // diffInMinutes is more than 60 minutes therefore we need to start a new 1 hour time slot
+                intervalStart = date;
                 totalFee += nextFee;
             }
         }
