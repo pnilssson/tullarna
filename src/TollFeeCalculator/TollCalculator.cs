@@ -58,7 +58,7 @@ public static class TollCalculator
             {
                 // The 60 minutes time slot has been exceeded and we need to start a new one
                 intervalStart = date;
-                // The new time slots highest fee will be the current one
+                // The new intervals highest fee will be the current one
                 currentIntervalHighestFee = currentFee;
                 // Add current fee to totalFee
                 totalFee += currentFee;

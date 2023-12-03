@@ -1,29 +1,37 @@
+using TollFeeCalculator.Common.Interfaces;
+using TollFeeCalculator.Data;
+using TollFeeCalculator.Models.TollFreeDate;
+
 namespace TollFeeCalculator.Common.Utils;
 
 public static class TollFreeDateUtil
 {
+    private const int MonthNumberOfJuly = 7;
+    private static readonly IEnumerable<IIsTollFreeDate> TollFreeDates;
+
+    static TollFreeDateUtil()
+    {
+        TollFreeDates = GetTollFreeDates();
+    }
+
     public static bool IsTollFreeDate(DateTime date)
     {
-        int year = date.Year;
-        int month = date.Month;
-        int day = date.Day;
-
-        if (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday) return true;
-
-        if (year == 2013)
-        {
-            if (month == 1 && day == 1 ||
-                month == 3 && (day == 28 || day == 29) ||
-                month == 4 && (day == 1 || day == 30) ||
-                month == 5 && (day == 1 || day == 8 || day == 9) ||
-                month == 6 && (day == 5 || day == 6 || day == 21) ||
-                month == 7 ||
-                month == 11 && day == 1 ||
-                month == 12 && (day == 24 || day == 25 || day == 26 || day == 31))
-            {
-                return true;
-            }
-        }
-        return false;
+        ValidateValidYear(date.Year);
+        
+        return IsWeekend(date) || IsJuly(date) || TollFreeDates.Any(tollFreeDate => tollFreeDate.IsTollFreeDate(date));
     }
+
+    private static void ValidateValidYear(int dateYear)
+    {
+        if (!TollFreeDateData.ValidYears.Contains(dateYear))
+            throw new ArgumentException("Date with invalid year provided for TollFreeDateUtil.IsTollFreeDate method.");
+    }
+
+    private static bool IsWeekend(DateTime date) =>
+        date.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday;
+    
+    private static bool IsJuly(DateTime date) => date.Month is MonthNumberOfJuly;
+    
+    private static IEnumerable<IIsTollFreeDate> GetTollFreeDates() => 
+        TollFreeDateData.Dates().Select(date => new TollFreeDate(date));
 }
