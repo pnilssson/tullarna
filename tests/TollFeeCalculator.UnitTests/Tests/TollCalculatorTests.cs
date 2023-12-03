@@ -1,8 +1,9 @@
 using FluentAssertions;
+using TollFeeCalculator.Common.Constants;
 using TollFeeCalculator.Common.Enums;
 using TollFeeCalculator.Models.Vehicles;
 
-namespace TollFeeCalculator.UnitTests;
+namespace TollFeeCalculator.UnitTests.Tests;
 
 public class TollCalculatorTests
 {
@@ -24,6 +25,63 @@ public class TollCalculatorTests
         tollFee.Should()
             .Throw<ArgumentException>()
             .WithMessage("Dates must be from the same day.");
+    }
+    
+    [Fact]
+    public void GetTollFee_OnTollFreeDay_Should_NotReturnFee()
+    {
+        // Arrange
+        var car = new Car();
+        var dates = new[]
+            { DateUtils.GetTollFreeDateWithNonTollFreeTime() };
+
+        // Act
+        var tollFee = TollCalculator.GetTollFee(car, dates);
+
+        // Assert
+        tollFee.Should().Be(0);
+    }
+    
+    [Fact]
+    public void GetTollFee_WithDateTimesThatExceedsDailyMaxFee_Should_ReturnMaxFee()
+    {
+        // Arrange
+        var car = new Car();
+        var dates = DateUtils.GetDateTimesThatExceedsDailyMaxFee();
+
+        // Act
+        var tollFee = TollCalculator.GetTollFee(car, dates);
+
+        // Assert
+        tollFee.Should().Be(TollFeeConstants.Max);
+    }
+    
+    [Fact]
+    public void GetTollFee_WithDateTimesMoreThenOneHourApart_Should_ReturnSumOfFees()
+    {
+        // Arrange
+        var car = new Car();
+        var (dates, sum) = DateUtils.GetDateTimesWithMoreThenOneHourApartAndTollFeeSum();
+
+        // Act
+        var tollFee = TollCalculator.GetTollFee(car, dates);
+
+        // Assert
+        tollFee.Should().Be(sum);
+    }
+    
+    [Fact]
+    public void GetTollFee_WithTwoDateTimesWithinOneHour_Should_ReturnHighestFee()
+    {
+        // Arrange
+        var car = new Car();
+        var (dates, highestFee) = DateUtils.GetTwoDateTimesWithinOneHourAndHighestFee();
+
+        // Act
+        var tollFee = TollCalculator.GetTollFee(car, dates);
+
+        // Assert
+        tollFee.Should().Be(highestFee);
     }
     
     [Fact]

@@ -47,7 +47,7 @@ public static class TollCalculator
         return ExceedsMaxFee(totalFee) ? TollFeeConstants.Max : totalFee;
     }
 
-    private static bool ExceedsMaxFee(int totalFee) => totalFee > TollFeeConstants.Max;
+    private static bool ExceedsMaxFee(int amount) => amount > TollFeeConstants.Max;
 
     /// <summary>
     /// Validates that all provided dates is within the same day.

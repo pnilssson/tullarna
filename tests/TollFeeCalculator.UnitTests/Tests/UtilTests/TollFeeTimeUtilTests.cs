@@ -1,7 +1,7 @@
 using FluentAssertions;
 using TollFeeCalculator.Common.Utils;
 
-namespace TollFeeCalculator.UnitTests.UtilTests;
+namespace TollFeeCalculator.UnitTests.Tests.UtilTests;
 
 public class TollFeeTimeUtilTests
 {

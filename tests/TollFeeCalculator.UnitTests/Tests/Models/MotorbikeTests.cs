@@ -2,48 +2,44 @@ using FluentAssertions;
 using TollFeeCalculator.Common.Enums;
 using TollFeeCalculator.Models.Vehicles;
 
-namespace TollFeeCalculator.UnitTests.Models;
+namespace TollFeeCalculator.UnitTests.Tests.Models;
 
-public class CarTests
+public class MotorbikeTests
 {
     [Fact]
-    public void IsTollFree_WhenInstantiatedWith_DefaultConstructor_Should_ReturnFalse()
+    public void IsTollFree_Should_ReturnTrue()
     {
         // Arrange
-        var car = new Car();
+        var motorbike = new Motorbike();
 
         // Act
-        var tollFree = car.IsTollFree();
-
-        // Assert
-        tollFree.Should().BeFalse();
-    }
-    
-    [Theory]
-    [InlineData(TollFreeType.Military)]
-    [InlineData(TollFreeType.Emergency)]
-    [InlineData(TollFreeType.Diplomat)]
-    [InlineData(TollFreeType.Foreign)]
-    public void IsTollFree_WhenInstantiatedWith_ParameterizedConstructor_Should_ReturnTrue(TollFreeType tollFreeType)
-    {
-        // Arrange
-        var car = new Car(tollFreeType);
-
-        // Act
-        var tollFree = car.IsTollFree();
+        var tollFree = motorbike.IsTollFree();
 
         // Assert
         tollFree.Should().BeTrue();
     }
     
     [Fact]
+    public void TollFreeVehicleType_Should_BeMotorbike()
+    {
+        // Arrange
+        var motorbike = new Motorbike();
+
+        // Act
+        var vehicleType = motorbike.TollFreeVehicleType;
+
+        // Assert
+        vehicleType.Should().Be(TollFreeVehicleType.Motorbike);
+    }
+    
+    [Fact]
     public void TollFreeType_WhenInstantiatedWith_DefaultConstructor_Should_BeNull()
     {
         // Arrange
-        var car = new Car();
+        var motorbike = new Motorbike();
 
         // Act
-        var tollFreeType = car.TollFreeType;
+        var tollFreeType = motorbike.TollFreeType;
 
         // Assert
         tollFreeType.Should().Be(null);
@@ -57,10 +53,10 @@ public class CarTests
     public void TollFreeType_WhenInstantiatedWith_ParameterizedConstructor_Should_ReturnTollFreeType(TollFreeType tollFreeTypeInput)
     {
         // Arrange
-        var car = new Car(tollFreeTypeInput);
+        var motorbike = new Motorbike(tollFreeTypeInput);
 
         // Act
-        var tollFreeType = car.TollFreeType;
+        var tollFreeType = motorbike.TollFreeType;
 
         // Assert
         tollFreeType.Should().Be(tollFreeTypeInput);
