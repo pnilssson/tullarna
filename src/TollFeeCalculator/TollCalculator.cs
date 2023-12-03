@@ -21,31 +21,51 @@ public static class TollCalculator
         if (vehicle.IsTollFree() || TollFreeDateUtil.IsTollFreeDate(dates[0]))
             return 0;
         
-        // Sortera datum på tid
-        dates = dates.OrderBy(date => date.TimeOfDay).ToArray();
-        DateTime intervalStart = dates[0];
+        var fee = GetTollFee(dates);
+
+        return ExceedsMaxFee(fee) ? TollFeeConstants.Max : fee;
+    }
+
+    private static int GetTollFee(DateTime[] dates)
+    {
         int totalFee = 0;
+        // Order dates by time of day to be able to see which dates are within a one hour time slot
+        // and when to start a new one hour time slot
+        dates = dates.OrderBy(date => date.TimeOfDay).ToArray();
+        // First date within the current one hour time slot
+        DateTime intervalStart = dates[0];
+        int currentIntervalHighestFee = TollFeeTimeUtil.GetTollFee(intervalStart);
         foreach (DateTime date in dates)
         {
-            int nextFee = TollFeeTimeUtil.GetTollFee(date);
-            int tempFee = TollFeeTimeUtil.GetTollFee(intervalStart);
-            
+            int currentFee = TollFeeTimeUtil.GetTollFee(date);
+
+            // Proceed to next date if currentFee is 0
+            if (currentFee == 0)
+                continue;
+
             var diffInMinutes = (date - intervalStart).TotalMinutes;
+            // If current date is within 60 minutes of the intervalStart date
             if (diffInMinutes <= 60)
             {
-                if (totalFee > 0) totalFee -= tempFee;
-                if (nextFee >= tempFee) tempFee = nextFee;
-                totalFee += tempFee;
+                // If total fee is bigger then 0 we subtract the currentIntervalHighestFee from it
+                if (totalFee > 0) totalFee -= currentIntervalHighestFee;
+                // If currentFee is bigger or equal to currentIntervalHighestFee then we set currentIntervalHighestFee to currentFee
+                if (currentFee >= currentIntervalHighestFee) currentIntervalHighestFee = currentFee;
+                // Add currentIntervalHighestFee to totalFee
+                totalFee += currentIntervalHighestFee;
             }
             else
             {
-                // diffInMinutes is more than 60 minutes therefore we need to start a new 1 hour time slot
+                // The 60 minutes time slot has been exceeded and we need to start a new one
                 intervalStart = date;
-                totalFee += nextFee;
+                // The new time slots highest fee will be the current one
+                currentIntervalHighestFee = currentFee;
+                // Add current fee to totalFee
+                totalFee += currentFee;
             }
         }
-        
-        return ExceedsMaxFee(totalFee) ? TollFeeConstants.Max : totalFee;
+
+        return totalFee;
     }
 
     private static bool ExceedsMaxFee(int amount) => amount > TollFeeConstants.Max;

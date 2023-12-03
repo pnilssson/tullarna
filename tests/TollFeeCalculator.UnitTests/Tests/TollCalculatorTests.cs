@@ -75,7 +75,7 @@ public class TollCalculatorTests
     {
         // Arrange
         var car = new Car();
-        var (dates, highestFee) = DateUtils.GetTwoDateTimesWithinOneHourAndHighestFee();
+        var (dates, highestFee) = DateUtils.GetDateTimesWithinOneHourAndHighestFee();
 
         // Act
         var tollFee = TollCalculator.GetTollFee(car, dates);

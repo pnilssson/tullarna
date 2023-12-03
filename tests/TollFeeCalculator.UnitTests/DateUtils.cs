@@ -43,15 +43,17 @@ public static class DateUtils
         }, 31);
     }
     
-    public static (DateTime[] dates, int highestFee) GetTwoDateTimesWithinOneHourAndHighestFee()
+    public static (DateTime[] dates, int highestFee) GetDateTimesWithinOneHourAndHighestFee()
     {
         return (new[]
         {
             // 8
-            GetNonTollFreeDate().AddHours(6),
+            GetNonTollFreeDate().AddHours(6).AddMinutes(29),
             // 13
             GetNonTollFreeDate().AddHours(6).AddMinutes(30),
-        }, 13);
+            // 18
+            GetNonTollFreeDate().AddHours(7)
+        }, 18);
     }
     
     public static (DateTime[] dates, int sum) GetDateTimesWithinDifferentOneHourTimeSlotsAndFeeSum()
