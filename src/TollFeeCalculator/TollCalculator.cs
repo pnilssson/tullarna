@@ -15,15 +15,19 @@ public static class TollCalculator
      */
     public static int GetTollFee(Vehicle vehicle, DateTime[] dates)
     {
-        if (vehicle.IsTollFree())
+        ValidateDatesIsFromSameDay(dates);
+
+        // As we validate that all provided dates is from the same day we can return early if any date IsTollFreeDate
+        if (vehicle.IsTollFree() || TollFreeDateUtil.IsTollFreeDate(dates[0]))
             return 0;
         
+        // Sortera datum på tid
         DateTime intervalStart = dates[0];
         int totalFee = 0;
         foreach (DateTime date in dates)
         {
-            int nextFee = GetTollFee(date);
-            int tempFee = GetTollFee(intervalStart);
+            int nextFee = TollFeeTimeUtil.GetTollFee(date);
+            int tempFee = TollFeeTimeUtil.GetTollFee(intervalStart);
 
             long diffInMilliseconds = date.Millisecond - intervalStart.Millisecond;
             long minutes = diffInMilliseconds/1000/60;
@@ -39,34 +43,20 @@ public static class TollCalculator
                 totalFee += nextFee;
             }
         }
-        if (totalFee > 60) totalFee = 60;
-        return totalFee;
+        
+        return ExceedsMaxFee(totalFee) ? TollFeeConstants.Max : totalFee;
     }
 
-    private static int GetTollFee(DateTime date) => IsTollFreeDate(date) ? 0 : TollFeeTimeUtils.GetTollFee(date);
+    private static bool ExceedsMaxFee(int totalFee) => totalFee > TollFeeConstants.Max;
 
-    private static bool IsTollFreeDate(DateTime date)
+    /// <summary>
+    /// Validates that all provided dates is within the same day.
+    /// </summary>
+    /// <param name="dates">Dates to validate.</param>
+    /// <exception cref="ArgumentException">Throws if dates contains dates of different days.</exception>
+    private static void ValidateDatesIsFromSameDay(IEnumerable<DateTime> dates)
     {
-        int year = date.Year;
-        int month = date.Month;
-        int day = date.Day;
-
-        if (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday) return true;
-
-        if (year == 2013)
-        {
-            if (month == 1 && day == 1 ||
-                month == 3 && (day == 28 || day == 29) ||
-                month == 4 && (day == 1 || day == 30) ||
-                month == 5 && (day == 1 || day == 8 || day == 9) ||
-                month == 6 && (day == 5 || day == 6 || day == 21) ||
-                month == 7 ||
-                month == 11 && day == 1 ||
-                month == 12 && (day == 24 || day == 25 || day == 26 || day == 31))
-            {
-                return true;
-            }
-        }
-        return false;
+        if (dates.GroupBy(date => date.Day).Count() > 1)
+            throw new ArgumentException("Dates must be from the same day.");
     }
 }

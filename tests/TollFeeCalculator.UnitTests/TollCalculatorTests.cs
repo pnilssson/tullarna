@@ -7,6 +7,26 @@ namespace TollFeeCalculator.UnitTests;
 public class TollCalculatorTests
 {
     [Fact]
+    public void GetTollFee_WithDifferentDays_Should_Throw_ArgumentException()
+    {
+        // Arrange
+        var car = new Car();
+        var dateOne = DateUtils.GetNonTollFreeDateAndTime();
+        var dateTwo = DateUtils.GetNonTollFreeDateAndTime().AddDays(1);
+        
+        var dates = new[]
+            { dateOne, dateTwo };
+
+        // Act
+        Action tollFee = () => TollCalculator.GetTollFee(car, dates);
+
+        // Assert
+        tollFee.Should()
+            .Throw<ArgumentException>()
+            .WithMessage("Dates must be from the same day.");
+    }
+    
+    [Fact]
     public void GetTollFee_OnMotorbike_Should_NotReturnFee()
     {
         // Arrange
@@ -108,7 +128,7 @@ public class TollCalculatorTests
     [InlineData(15, 30)]
     [InlineData(16, 15)]
     [InlineData(16, 59)]
-    public void GetTollFee_OnTollFeeTimes_Should_ReturnCorrectTollFee(int hour, int minute)
+    public void GetTollFee_OnHighTollFeeTimes_Should_ReturnCorrectTollFee(int hour, int minute)
     {
         // Arrange
         const int expectedTollFee = 18;
@@ -125,6 +145,7 @@ public class TollCalculatorTests
     
     [Theory]
     [InlineData(18, 30)]
+    [InlineData(24, 0)]
     [InlineData(5, 59)]
     public void GetTollFee_OnNonTollFeeTimes_Should_ReturnCorrectTollFee(int hour, int minute)
     {
