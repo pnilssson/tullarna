@@ -1,6 +1,6 @@
 using TollFeeCalculator.Common.Constants;
 
-namespace TollFeeCalculator.Common.Helpers.TollFeeTimeHelpers.LowTollFeeTimeHelpers;
+namespace TollFeeCalculator.Models.TollFeeTime.LowTollFeeTime;
 
 public class LowTollFeeEvening : TollFeeTime
 {

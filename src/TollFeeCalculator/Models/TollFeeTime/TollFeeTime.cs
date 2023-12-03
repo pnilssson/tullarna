@@ -1,7 +1,6 @@
-using TollFeeCalculator.Common.Constants;
 using TollFeeCalculator.Common.Extensions;
 
-namespace TollFeeCalculator.Common.Helpers.TollFeeTimeHelpers;
+namespace TollFeeCalculator.Models.TollFeeTime;
 
 public abstract class TollFeeTime
 {

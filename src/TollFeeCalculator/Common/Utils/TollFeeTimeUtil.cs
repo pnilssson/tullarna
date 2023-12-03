@@ -1,12 +1,12 @@
-using TollFeeCalculator.Common.Helpers.TollFeeTimeHelpers;
+using TollFeeCalculator.Models.TollFeeTime;
 
 namespace TollFeeCalculator.Common.Utils;
 
-public static class TollFeeTimeUtils
+public static class TollFeeTimeUtil
 {
     private static readonly IEnumerable<TollFeeTime?> TollFeeTimes;
     
-    static TollFeeTimeUtils()
+    static TollFeeTimeUtil()
     {
         TollFeeTimes = AppDomain.CurrentDomain.GetAssemblies()
             .SelectMany(assembly => assembly.GetTypes())
