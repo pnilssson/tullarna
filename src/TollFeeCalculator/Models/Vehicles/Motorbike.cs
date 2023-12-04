@@ -5,7 +5,7 @@ namespace TollFeeCalculator.Models.Vehicles;
 
 public sealed class Motorbike : Vehicle, ITollFreeVehicle
 {
-    public TollFreeVehicleType TollFreeVehicleType { get; private init; } = TollFreeVehicleType.Motorbike;
+    public TollFreeVehicleType TollFreeVehicleType => TollFreeVehicleType.Motorbike;
 
     public Motorbike(TollFreeType tollFreeType)
     {
