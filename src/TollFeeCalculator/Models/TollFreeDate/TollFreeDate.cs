@@ -2,7 +2,7 @@ using TollFeeCalculator.Common.Interfaces;
 
 namespace TollFeeCalculator.Models.TollFreeDate;
 
-public class TollFreeDate : IIsTollFreeDate
+public sealed class TollFreeDate : IIsTollFreeDate
 {
     private readonly DateTime _tollFreeDate;
     private readonly DateTime _dayBeforeTollFreeDate;

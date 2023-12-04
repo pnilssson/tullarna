@@ -2,7 +2,7 @@
 
 namespace TollFeeCalculator.Models.Vehicles;
 
-public class Car : Vehicle
+public sealed class Car : Vehicle
 {
     public Car(TollFreeType tollFreeType)
     {

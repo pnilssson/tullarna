@@ -2,7 +2,7 @@ using TollFeeCalculator.Common.Constants;
 
 namespace TollFeeCalculator.Models.TollFeeTime.MediumTollFeeTime;
 
-public class MediumTollFeeMorning : TollFeeTime
+public sealed class MediumTollFeeMorning : TollFeeTime
 {
     protected override TimeSpan StartTime => new(6, 30, 0);
     protected override TimeSpan EndTime => new(6, 59, 0);

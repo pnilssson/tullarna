@@ -3,7 +3,7 @@ using TollFeeCalculator.Common.Interfaces;
 
 namespace TollFeeCalculator.Models.Vehicles;
 
-public class Motorbike : Vehicle, ITollFreeVehicle
+public sealed class Motorbike : Vehicle, ITollFreeVehicle
 {
     public TollFreeVehicleType TollFreeVehicleType { get; private init; } = TollFreeVehicleType.Motorbike;
 

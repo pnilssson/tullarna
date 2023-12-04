@@ -15,7 +15,7 @@ public static class TollCalculator
      */
     public static int GetTollFee(Vehicle vehicle, DateTime[] dates)
     {
-        ValidateDatesIsFromSameDay(dates);
+        DateUtil.ValidateDatesIsFromSameDay(dates);
 
         // As we validate that all provided dates is from the same day we can return early if any date IsTollFreeDate
         if (vehicle.IsTollFree() || TollFreeDateUtil.IsTollFreeDate(dates[0]))
@@ -48,10 +48,11 @@ public static class TollCalculator
             if (diffInMinutes <= 60)
             {
                 // If total fee is bigger then 0 we subtract the currentIntervalHighestFee from it
+                // to make sure that we dont add fees multiple times within one interval
                 if (totalFee > 0) totalFee -= currentIntervalHighestFee;
                 // If currentFee is bigger or equal to currentIntervalHighestFee then we set currentIntervalHighestFee to currentFee
+                // to always add the highest fee during the interval
                 if (currentFee >= currentIntervalHighestFee) currentIntervalHighestFee = currentFee;
-                // Add currentIntervalHighestFee to totalFee
                 totalFee += currentIntervalHighestFee;
             }
             else
@@ -69,15 +70,4 @@ public static class TollCalculator
     }
 
     private static bool ExceedsMaxFee(int amount) => amount > TollFeeConstants.Max;
-
-    /// <summary>
-    /// Validates that all provided dates is within the same day.
-    /// </summary>
-    /// <param name="dates">Dates to validate.</param>
-    /// <exception cref="ArgumentException">Throws if dates contains dates of different days.</exception>
-    private static void ValidateDatesIsFromSameDay(IEnumerable<DateTime> dates)
-    {
-        if (dates.GroupBy(date => date.Date).Count() > 1)
-            throw new ArgumentException("Dates must be from the same day.");
-    }
 }
